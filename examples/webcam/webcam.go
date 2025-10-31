@@ -28,7 +28,7 @@ import (
 var (
 	camera      *device.Device
 	frames      <-chan []byte
-	fps         uint32 = 30
+	fps         uint32 = 60
 	pixfmt      v4l2.FourCCType
 	width       = 640
 	height      = 480
@@ -238,7 +238,11 @@ func controlVideo(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	port := ":9090"
-	devName := "/dev/video0"
+	/*
+		devName := "/dev/video0"
+		/*/
+	devName := "/dev/video4"
+	//*/
 	frameRate := int(fps)
 	buffSize := 4
 	defaultDev, err := device.Open(devName)
