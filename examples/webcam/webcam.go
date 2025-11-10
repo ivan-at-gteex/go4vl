@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"html/template"
@@ -15,6 +16,8 @@ import (
 	"net/http"
 	"net/textproto"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -63,7 +66,16 @@ func servePage(w http.ResponseWriter, r *http.Request) {
 
 	// Start HTTP response
 	w.Header().Add("Content-Type", "text/html")
-	t, err := template.ParseFiles("webcam.html")
+
+	path, err := getCurrentFilePath()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	file := filepath.Join(path, "webcam.html")
+
+	t, err := template.ParseFiles(file)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -236,6 +248,16 @@ func controlVideo(w http.ResponseWriter, req *http.Request) {
 
 }
 
+func getCurrentFilePath() (string, error) {
+	_, filename, _, ok := runtime.Caller(1)
+	if !ok {
+		return "", errors.New("failed to get caller information")
+	}
+
+	absPath := filepath.Dir(filename)
+	return absPath, nil
+}
+
 func main() {
 	port := ":9090"
 	//*
@@ -256,6 +278,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//fileDir, err := os
 
 	fmt.Println("Current directory: %s", wd)
 
