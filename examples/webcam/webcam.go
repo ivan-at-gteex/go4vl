@@ -274,15 +274,6 @@ func main() {
 		skipDefault = true
 	}
 
-	wd, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//fileDir, err := os
-
-	fmt.Println("Current directory: %s", wd)
-
 	format := "yuyv"
 	if !skipDefault {
 		pix, err := defaultDev.GetPixFormat()
