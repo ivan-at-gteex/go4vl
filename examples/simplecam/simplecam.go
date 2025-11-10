@@ -39,7 +39,7 @@ func imageServ(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	port := ":9090"
-	devName := "/dev/video0"
+	devName := "/dev/video4"
 	flag.StringVar(&devName, "d", devName, "device name (path)")
 	flag.StringVar(&port, "p", port, "webcam service port")
 

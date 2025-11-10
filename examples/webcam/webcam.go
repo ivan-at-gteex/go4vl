@@ -241,7 +241,7 @@ func main() {
 	/*
 		devName := "/dev/video0"
 		/*/
-	devName := "/dev/video4"
+	devName := "/dev/video2"
 	//*/
 	frameRate := int(fps)
 	buffSize := 4
@@ -251,6 +251,13 @@ func main() {
 	if err != nil {
 		skipDefault = true
 	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Current directory: %s", wd)
 
 	format := "yuyv"
 	if !skipDefault {
