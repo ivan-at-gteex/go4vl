@@ -238,9 +238,9 @@ func controlVideo(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	port := ":9090"
-	/*
-		devName := "/dev/video0"
-		/*/
+	//*
+	devName := "/dev/video0"
+	/*/
 	devName := "/dev/video2"
 	//*/
 	frameRate := int(fps)
